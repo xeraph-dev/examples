@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grid Layout Example</title>
+
+    <style>
+        body {
+            background-color: #181818;
+            color: aliceblue;
+            height: 100vh;
+            height: 100dvh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            padding: 0;
+            margin: 0;
+        }
+
+        header nav ul {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            padding-top: 2rem;
+        }
+
+
+        h2 {
+            margin: 0;
+        }
+
+        figure {
+            margin: 0;
+        }
+
+        main {
+            display: grid;
+            grid-template-columns: 1fr 30ch 1fr;
+            grid-template-rows: 2rem repeat(4, 1fr) 2rem;
+            grid-template-areas:
+                '       . middle .      '
+                'tl-image middle r-image'
+                'tl-image middle r-image'
+                'bl-image middle r-image'
+                'bl-image middle details'
+                '       . middle .      ';
+            width: 100%;
+            padding: 2rem;
+            max-width: 115ch;
+        }
+
+        figure.tl-image {
+            grid-area: tl-image;
+        }
+
+        figure.bl-image {
+            grid-area: bl-image;
+        }
+
+        section.middle {
+            grid-area: middle;
+
+            background-color: #333;
+
+            padding: 2rem 1rem;
+        }
+
+        figure.r-image {
+            grid-area: r-image;
+
+        }
+
+        .details {
+            grid-area: details;
+
+            padding: 1rem;
+        }
+
+        figure>div {
+            height: 100%;
+            width: 100%;
+        }
+
+        figure {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        figure.r-image {
+            align-items: center;
+        }
+
+        button {
+            background-color: #181818;
+            border: 1px solid orange;
+            padding: 1rem;
+            color: aliceblue;
+        }
+
+        figcaption {
+            writing-mode: vertical-lr;
+            text-orientation: sideways;
+            rotate: 180deg;
+        }
+
+        figure img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute !important;
+            inset: 0;
+        }
+
+        figure.tl-image img,
+        figure.bl-image img {
+            object-position: center;
+        }
+
+        figure.r-image img {
+            object-position: top;
+        }
+
+        figure>div {
+            position: relative;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a>variant 1</a></li>
+                <li><a href="/index2.html">variant 2</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <figure class="tl-image">
+            <figcaption>Lorem Ipsum dolor sit amet.</figcaption>
+            <div>
+                <img src="image.webp" />
+            </div>
+        </figure>
+        <figure class="bl-image">
+            <figcaption>Lorem Ipsum dolor sit amet.</figcaption>
+            <div>
+                <img src="image.webp" />
+            </div>
+        </figure>
+        <section class="middle">
+            <h1>About Us</h1>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi, culpa?</p>
+            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestiae velit ad officiis.</p>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos eius esse, id error ad praesentium.</p>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores laudantium velit dolorem .</p>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati incidunt nemo ipsam eligendi vero
+                numquam ipsum quam quo dignissimos quos.</p>
+            <button>Buy your Floor now</button>
+        </section>
+        <figure class="r-image">
+            <div>
+                <img src="image.webp" />
+            </div>
+            <figcaption>Lorem Ipsum dolor sit amet.</figcaption>
+        </figure>
+        <div class="details">
+            <h2>Lorem ipsum.</h2>
+            <h2>Dolor sit amet.</h2>
+            <span>Lorem Ipsum dolor sit amet.</span>
+            </footer>
+    </main>
+</body>
+
+</html>
