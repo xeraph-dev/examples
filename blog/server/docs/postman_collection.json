@@ -1,0 +1,633 @@
+{
+	"info": {
+		"_postman_id": "d0bb5c55-19ba-40b0-ba6a-0f9d8ab8ddb9",
+		"name": "react-apollo-typeorm-example",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "12818540"
+	},
+	"item": [
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "get users",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query {\n    users {\n        id\n        username\n        email\n        role\n        createdAt\n        updatedAt\n        comments {\n            id\n            post {\n                id\n            }\n        }\n        posts {\n            id\n        }\n    }\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query ($data: GetUserInput!) {\n    user(data: $data) {\n        id\n        username\n        email\n        role\n        createdAt\n        updatedAt\n        comments {\n            id\n            post {\n                id\n            }\n        }\n        posts {\n            id\n        }\n    }\n}",
+								"variables": "{\n    \"data\": {\n        \"username\": \"admin\"\n    }\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation ($data: CreateUserInput!) {\n    createUser(data: $data) {\n        id\n        username\n        email\n        role\n        createdAt\n        updatedAt\n        comments {\n            id\n            post {\n                id\n            }\n        }\n        posts {\n            id\n        }\n    }\n}",
+								"variables": "{\n    \"data\": {\n        \"username\": \"user\",\n        \"password\": \"password\",\n        \"email\": \"a@a.com\"\n    }\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation ($data: UpdateUserInput!) {\n    updateUser(data: $data) {\n        id\n        username\n        email\n        role\n        createdAt\n        updatedAt\n        comments {\n            id\n            post {\n                id\n            }\n        }\n        posts {\n            id\n        }\n    }\n}",
+								"variables": "{\n    \"data\": {\n        \"id\": \"8654684f-415e-4f5b-8b26-486f62b1a0d5\",\n        \"username\": \"user\"\n    }\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation ($data: DeleteUserInput!) {\n    deleteUser(data: $data)\n}",
+								"variables": "{\n    \"data\": {\n        \"username\": \"user\"\n    }\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "sign up",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var res = pm.response.json();",
+									"var signUp = res.data.signUp",
+									"pm.environment.set(\"token\", signUp.token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation ($data: SignUpUser!){\n    signUp(data: $data) {\n        token\n        user {\n            id\n            username\n            email\n            role\n            createdAt\n            updatedAt\n            comments {\n                id\n                post {\n                    id\n                }\n            }\n            posts {\n                id\n            }\n        }\n    }\n}",
+								"variables": "{\n    \"data\": {\n        \"username\": \"user1\",\n        \"password\": \"b\",\n        \"email\": \"1a@a.com\"\n    }\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "sign in",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var res = pm.response.json();",
+									"var signIn = res.data.signIn",
+									"pm.environment.set(\"token\", signIn.token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation ($data: SignInUser!){\n    signIn(data: $data) {\n        token\n        user {\n            id\n            username\n            email\n            role\n            createdAt\n            updatedAt\n            comments {\n                id\n                post {\n                    id\n                }\n            }\n            posts {\n                id\n            }\n        }\n    }\n}",
+								"variables": "{\n    \"data\": {\n        \"username\": \"admin\",\n        \"password\": \"admin\"\n    }\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "logout",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var res = pm.response.json();",
+									"if (res.data.logout) {",
+									"    pm.environment.unset(\"token\");",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation {\n    logout\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get self",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query {\n    getSelf {\n        id\n        username\n        email\n        role\n        createdAt\n        updatedAt\n        comments {\n            id\n            post {\n                id\n            }\n        }\n        posts {\n            id\n        }\n    }\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update self",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation($data: UpdateSelfUserInput!) {\n    updateSelf(data: $data) {\n        id\n        username\n        email\n        role\n        createdAt\n        updatedAt\n        comments {\n            id\n            post {\n                id\n            }\n        }\n        posts {\n            id\n        }\n    }\n}",
+								"variables": "{\n    \"data\": {\n        \"username\": \"user1\"\n    }\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete self",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var res = pm.response.json();",
+									"if (res.data.logout) {",
+									"    pm.environment.unset(\"token\");",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation {\n    deleteSelf\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "post",
+			"item": [
+				{
+					"name": "get posts",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query ($pagination: PaginationInput, $filter: FilterPostByInput) {\n    posts(pagination: $pagination, filter: $filter) {\n        id\n        title\n        body\n        createdAt\n        updatedAt\n        user {\n            id\n        }\n        comments {\n            id\n        }\n    }\n}",
+								"variables": "{\n    \"pagination\": {\n        \"offset\": 0,\n        \"limit\": 5\n    },\n    \"filter\": {\n        \"user\": {\n            \"username\": \"efreed2\"\n        }\n    }\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get post",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query ($data: GetPostInput!) {\n    post(data: $data) {\n        id\n        title\n        body\n        createdAt\n        updatedAt\n        user {\n            id\n        }\n        comments {\n            id\n        }\n    }\n}",
+								"variables": "{\n    \"data\": {\n        \"id\": \"e80052da-06a3-4d46-89e8-46a0f2b7971c\"\n    }\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create post",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation ($data: CreatePostInput!) {\n    createPost(data: $data) {\n        id\n        title\n        body\n        createdAt\n        updatedAt\n        user {\n            id\n        }\n        comments {\n            id\n        }\n    }\n}",
+								"variables": "{\n    \"data\": {\n        \"title\": \"Post title\",\n        \"body\": \"Post body\"\n    }\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update post",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation ($data: UpdatePostInput!) {\n    updatePost(data: $data) {\n        id\n        title\n        body\n        createdAt\n        updatedAt\n        user {\n            id\n        }\n        comments {\n            id\n        }\n    }\n}",
+								"variables": "{\n    \"data\": {\n        \"id\": \"b991aa19-734c-48fb-acbf-97071d17da77\",\n        \"title\": \"New post title\"\n    }\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete post",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation ($data: DeletePostInput!) {\n    deletePost(data: $data)\n}",
+								"variables": "{\n    \"data\": {\n        \"id\": \"b991aa19-734c-48fb-acbf-97071d17da77\"\n    }\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "count posts",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "comment",
+			"item": [
+				{
+					"name": "get comments",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query {\n    comments {\n        id\n        title\n        body\n        createdAt\n        updatedAt\n        user {\n            id\n        }\n        post {\n            id\n        }\n    }\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get comment",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query ($data: GetCommentInput!) {\n    comment(data: $data) {\n        id\n        title\n        body\n        createdAt\n        updatedAt\n        user {\n            id\n        }\n        post {\n            id\n        }\n    }\n}",
+								"variables": "{\n    \"data\": {\n        \"id\": \"41de8ca0-75cb-4358-86ac-fc8b1bca3025\"\n    }\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create comment",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation ($data: CreateCommentInput!) {\n    createComment(data: $data) {\n        id\n        title\n        body\n        createdAt\n        updatedAt\n        user {\n            id\n        }\n        post {\n            id\n        }\n    }\n}",
+								"variables": "{\n    \"data\": {\n        \"postId\": \"b991aa19-734c-48fb-acbf-97071d17da77\",\n        \"title\": \"Comment title\",\n        \"body\": \"Comment body\"\n    }\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update comment",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation ($data: UpdateCommentInput!) {\n    updateComment(data: $data) {\n        id\n        title\n        body\n        createdAt\n        updatedAt\n        user {\n            id\n        }\n        post {\n            id\n        }\n    }\n}",
+								"variables": "{\n    \"data\": {\n        \"id\": \"41de8ca0-75cb-4358-86ac-fc8b1bca3025\",\n        \"title\": \"New comment title\"\n    }\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete comment",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation ($data: DeleteCommentInput!) {\n    deleteComment(data: $data)\n}",
+								"variables": "{\n    \"data\": {\n        \"id\": \"41de8ca0-75cb-4358-86ac-fc8b1bca3025\"\n    }\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
