@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blog</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+
+    <script src="js/theme.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.1/dist/iconify-icon.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1/plugin/relativeTime.js"></script>
+    <script
+      defer
+      src="https://unpkg.com/alpinejs@3.10.5/dist/cdn.min.js"
+    ></script>
+  </head>
+  <body
+    class="container flex flex-col h-screen gap-4 px-4 py-3 mx-auto transition-colors duration-75 text-slate-900 bg-slate-200 dark:text-slate-200 dark:bg-slate-900"
+    x-data="{ posts: [] }"
+    x-init="
+      dayjs.extend(window.dayjs_plugin_relativeTime)
+      posts = await (await fetch('/posts.json')).json()
+      const swiper = new Swiper('#swiper', {
+        loop: true,
+        autoplay: {
+          delay: 5000,
+          disableOnInteraction: false,
+        },
+      });
+      const slides = []
+      for (let post of posts.slice(0, 3)) {
+        const slide = document.querySelector('#slide-template').content.cloneNode(true)
+
+        const img = slide.querySelector('img')
+        img.src = post.image
+        img.alt = `post ${post.id}`
+
+        const title = slide.querySelector('h3')
+        title.innerText = post.title
+
+        const author = slide.querySelector('span.author')
+        author.innerText = post.author
+
+        const time = slide.querySelector('time')
+        time.innerText = dayjs(post.date).fromNow()
+
+        const body = slide.querySelector('p')
+        body.innerText = post.body.at(0)
+
+        const link = slide.querySelector('a')
+        link.href = `/post/${post.id}.html`
+
+        slides.push(slide)
+      }
+      swiper.appendSlide(slides)
+    "
+  >
+    <header
+      class="sticky z-50 flex items-center justify-between p-2 rounded-md shadow-md bg-slate-300 backdrop-blur-lg bg-opacity-5 top-2"
+    >
+      <a href="/" class="flex items-end gap-0.5">
+        <iconify-icon icon="tabler:brand-blogger" height="2rem"></iconify-icon>
+        <span class="text-2xl font-bold">log</span>
+      </a>
+      <div class="flex gap-2">
+        <button
+          id="change-theme"
+          title="Change theme"
+          type="button"
+          class="flex items-center"
+        >
+          <iconify-icon icon="tabler:sun" height="1.5rem"></iconify-icon>
+        </button>
+        <a
+          href="/signin.html"
+          class="px-2 py-0.5 rounded-sm shadow-sm bg-blue-700 text-slate-200"
+          >Enter</a
+        >
+      </div>
+    </header>
+    <main class="flex flex-col gap-4 grow">
+      <section class="flex flex-col gap-2">
+        <h2 class="text-xl font-bold">Featured posts</h2>
+        <div
+          class="overflow-hidden rounded-md shadow-md aspect-w-16 aspect-h-7 sm:aspect-h-4 lg:aspect-h-3"
+        >
+          <div id="swiper" class="swiper">
+            <div class="swiper-wrapper"></div>
+          </div>
+        </div>
+      </section>
+      <section class="flex flex-col gap-2">
+        <h2 class="text-xl font-bold">All posts</h2>
+        <div class="grid gap-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+          <template x-for="post in posts" :key="post.id">
+            <a x-bind:href="`/post/${post.id}.html`">
+              <article
+                class="overflow-hidden rounded-md shadow-md bg-slate-300 backdrop-blur-lg bg-opacity-5"
+              >
+                <figure class="overflow-hidden aspect-w-16 aspect-h-6">
+                  <img
+                    class="object-cover object-center transition-transform duration-300 hover:scale-105"
+                    x-bind:src="post.image"
+                    x-bing:alt="`post ${post.id}`"
+                  />
+                </figure>
+                <div class="p-2">
+                  <h3
+                    class="text-xl font-bold line-clamp-1"
+                    x-text="post.title"
+                  ></h3>
+                  <span class="flex items-center gap-1 text-sm font-light">
+                    <span x-text="post.author"></span>
+                    <span>|</span>
+                    <time x-text="dayjs(post.date).fromNow()"></time>
+                  </span>
+                  <p class="text-sm line-clamp-4" x-text="post.body.at(0)"></p>
+                </div>
+              </article>
+            </a>
+          </template>
+        </div>
+      </section>
+    </main>
+    <footer
+      class="flex items-center p-2 rounded-md shadow-md bg-slate-300 backdrop-blur-lg bg-opacity-5"
+    >
+      <div class="grow"></div>
+      <span class="text-sm font-light">Adrian © 2022</span>
+    </footer>
+    <template id="slide-template">
+      <article class="swiper-slide">
+        <img
+          class="object-cover object-center transition-transform duration-300 hover:scale-105"
+        />
+        <a
+          class="absolute p-1 rounded-md text-cyan-600 bottom-2 left-2 bg-slate-300 backdrop-blur-lg bg-opacity-5"
+        >
+          See more
+        </a>
+        <div
+          class="absolute w-2/5 p-2 -translate-y-1/2 rounded-md shadow-md right-2 top-1/2 bg-slate-300 backdrop-blur-lg bg-opacity-5"
+        >
+          <h3 class="text-xl font-bold line-clamp-1 text-slate-200"></h3>
+          <span
+            class="items-center hidden gap-1 text-sm font-light text-slate-200 sm:flex"
+          >
+            <span class="author"></span>
+            <span>|</span>
+            <time></time>
+          </span>
+          <p class="text-sm line-clamp-3 md:line-clamp-5 text-slate-200"></p>
+        </div>
+      </article>
+    </template>
+  </body>
+</html>

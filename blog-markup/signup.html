@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign up | Blog</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <script src="js/theme.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.1/dist/iconify-icon.min.js"></script>
+  </head>
+  <body
+    class="container flex items-center justify-center h-screen gap-4 px-4 py-3 mx-auto transition-colors duration-75 text-slate-900 bg-slate-200 dark:text-slate-200 dark:bg-slate-900"
+  >
+    <form
+      class="flex flex-col gap-6 p-4 rounded-md shadow-md bg-slate-300 backdrop-blur-lg bg-opacity-5"
+    >
+      <div class="flex justify-between">
+        <div class="flex items-baseline gap-1">
+          <h1 class="text-xl font-bold">Sign up</h1>
+          <span class="font-light">|</span>
+          <a class="text-cyan-600" href="/signin.html">Sign in</a>
+        </div>
+        <button
+          id="change-theme"
+          title="Change theme"
+          type="button"
+          class="flex items-center"
+        >
+          <iconify-icon icon="tabler:sun" height="1.5rem"></iconify-icon>
+        </button>
+      </div>
+      <label class="flex items-center gap-2">
+        <iconify-icon icon="tabler:user" height="1.2rem"></iconify-icon>
+        <input
+          name="username"
+          placeholder="adrian"
+          type="text"
+          required
+          class="h-8 p-2 rounded-sm outline-none bg-slate-500 backdrop-blur-lg bg-opacity-5 placeholder:font-light text-slate-900 dark:text-slate-200"
+        />
+      </label>
+      <label class="flex items-center gap-2">
+        <iconify-icon icon="tabler:mail" height="1.2rem"></iconify-icon>
+        <input
+          name="email"
+          placeholder="adrian@email.com"
+          type="email"
+          required
+          class="h-8 p-2 rounded-sm outline-none bg-slate-500 backdrop-blur-lg bg-opacity-5 placeholder:font-light text-slate-900 dark:text-slate-200"
+        />
+      </label>
+      <label class="flex items-center gap-2">
+        <iconify-icon icon="tabler:lock" height="1.2rem"></iconify-icon>
+        <input
+          name="password"
+          type="password"
+          placeholder="123456"
+          required
+          class="h-8 p-2 rounded-sm outline-none bg-slate-500 backdrop-blur-lg bg-opacity-5 placeholder:font-light text-slate-900 dark:text-slate-200"
+        />
+      </label>
+      <div class="flex items-center justify-between">
+        <a class="text-cyan-600" href="/">Go to home</a>
+        <input
+          class="px-2 py-0.5 rounded-sm shadow-sm bg-blue-700 bg-opacity-50 text-slate-200 self-end"
+          type="submit"
+        />
+      </div>
+    </form>
+  </body>
+</html>

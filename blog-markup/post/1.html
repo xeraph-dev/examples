@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Post | Blog</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <script src="/js/theme.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.1/dist/iconify-icon.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1/plugin/relativeTime.js"></script>
+    <script
+      defer
+      src="https://unpkg.com/alpinejs@3.10.5/dist/cdn.min.js"
+    ></script>
+  </head>
+  <body
+    class="container flex flex-col h-screen gap-4 px-4 py-3 mx-auto transition-colors duration-75 text-slate-900 bg-slate-200 dark:text-slate-200 dark:bg-slate-900"
+    x-data="{ post: undefined }"
+    x-init="
+      dayjs.extend(window.dayjs_plugin_relativeTime)
+      posts = await (await fetch('/posts.json')).json()
+      post = posts.find(el => el.id === 1)
+    "
+  >
+    <header
+      class="sticky z-50 flex items-center justify-between p-2 rounded-md shadow-md bg-slate-300 backdrop-blur-lg bg-opacity-5 top-2"
+    >
+      <a href="/" class="flex items-end gap-0.5">
+        <iconify-icon icon="tabler:brand-blogger" height="2rem"></iconify-icon>
+        <span class="text-2xl font-bold">log</span>
+      </a>
+      <div class="flex gap-2">
+        <button
+          id="change-theme"
+          title="Change theme"
+          type="button"
+          class="flex items-center"
+        >
+          <iconify-icon icon="tabler:sun" height="1.5rem"></iconify-icon>
+        </button>
+        <a
+          href="/signin.html"
+          class="px-2 py-0.5 rounded-sm shadow-sm bg-blue-700 text-slate-200"
+          >Enter</a
+        >
+      </div>
+    </header>
+    <main class="flex flex-col gap-4 grow">
+      <figure class="overflow-hidden rounded-md aspect-w-16 aspect-h-6">
+        <img
+          class="object-cover object-center transition-transform duration-300 hover:scale-105"
+          x-bind:src="post.image"
+          x-bing:alt="`post ${post.id}`"
+        />
+      </figure>
+      <section class="flex flex-col gap-1">
+        <h1 x-text="post.title" class="text-3xl font-bold"></h1>
+        <span class="flex items-center gap-1 text-sm font-light">
+          <span x-text="post.author"></span>
+          <span>|</span>
+          <time x-text="dayjs(post.date).fromNow()"></time>
+        </span>
+      </section>
+      <section class="flex flex-col gap-2">
+        <template x-for="p in post.body">
+          <p class="text-sm line-clamp-4" x-text="p"></p>
+        </template>
+      </section>
+    </main>
+    <footer
+      class="flex items-center p-2 rounded-md shadow-md bg-slate-300 backdrop-blur-lg bg-opacity-5"
+    >
+      <div class="grow"></div>
+      <span class="text-sm font-light">Adrian © 2022</span>
+    </footer>
+  </body>
+</html>
